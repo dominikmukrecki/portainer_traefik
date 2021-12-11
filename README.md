@@ -1,0 +1,2 @@
+# portainer-traefik-initial-stack
+ 

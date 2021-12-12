@@ -16,19 +16,19 @@ services:
       - CF_API_EMAIL=${CF_API_EMAIL}
       - CF_API_KEY=${CF_API_KEY}
     ports:
-      - "80:80"
-      - "443:443"
+      - 80:80
+      - 443:443
     volumes:
       - traefik_letsencrypt:/letsencrypt
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /etc/localtime:/etc/localtime:ro
     labels:
-      - "traefik.enable=true"
-      - "traefik.docker.network=traefik"
-      - "traefik.http.routers.traefik-secure.entrypoints=websecure"
-      - "traefik.http.routers.traefik-secure.rule=Host(`traefik.mends.eu`)"
-      - "traefik.http.routers.traefik-secure.service=api@internal"
-      - "traefik.http.routers.traefik-secure.tls.certresolver=myresolver"
+      - traefik.enable=true
+      - traefik.docker.network=traefik
+      - traefik.http.routers.traefik-secure.entrypoints=websecure
+      - traefik.http.routers.traefik-secure.rule=Host(`traefik.mends.eu`)
+      - traefik.http.routers.traefik-secure.service=api@internal
+      - traefik.http.routers.traefik-secure.tls.certresolver=myresolver
     networks:
       - traefik
   portainer:
@@ -40,19 +40,19 @@ services:
       - portainer_data:/data
     labels:
       # Frontend
-      - "traefik.enable=true"
-      - "traefik.docker.network=traefik"
-      - "traefik.http.routers.frontend.rule=Host(`portainer.mends.eu`)"
-      - "traefik.http.routers.frontend.entrypoints=websecure"
-      - "traefik.http.services.frontend.loadbalancer.server.port=9000"
-      - "traefik.http.routers.frontend.service=frontend"
-      - "traefik.http.routers.frontend.tls.certresolver=myresolver"
+      - traefik.enable=true
+      - traefik.docker.network=traefik
+      - traefik.http.routers.frontend.rule=Host(`portainer.mends.eu`)
+      - traefik.http.routers.frontend.entrypoints=websecure
+      - traefik.http.services.frontend.loadbalancer.server.port=9000
+      - traefik.http.routers.frontend.service=frontend
+      - traefik.http.routers.frontend.tls.certresolver=myresolver
       # Edge
-      - "traefik.http.routers.edge.rule=Host(`edge.mends.eu`)"
-      - "traefik.http.routers.edge.entrypoints=websecure"
-      - "traefik.http.services.edge.loadbalancer.server.port=8000"
-      - "traefik.http.routers.edge.service=edge"
-      - "traefik.http.routers.edge.tls.certresolver=myresolver"
+      - traefik.http.routers.edge.rule=Host(`edge.mends.eu`)
+      - traefik.http.routers.edge.entrypoints=websecure
+      - traefik.http.services.edge.loadbalancer.server.port=8000
+      - traefik.http.routers.edge.service=edge
+      - traefik.http.routers.edge.tls.certresolver=myresolver
     networks:
       - traefik
 volumes:

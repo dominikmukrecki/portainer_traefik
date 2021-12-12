@@ -12,6 +12,7 @@ services:
       - --certificatesresolvers.myresolver.acme.dnschallenge=true
       - --certificatesresolvers.myresolver.acme.dnschallenge.provider=cloudflare
       - --certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json
+      - --pilot.token=a3c67e42-ed3d-4702-84e5-16b755450e97
     environment:
       - CF_API_EMAIL=${CF_API_EMAIL}
       - CF_API_KEY=${CF_API_KEY}

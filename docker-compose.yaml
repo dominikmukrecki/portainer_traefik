@@ -1,7 +1,7 @@
 version: "3.7"
 services:
   traefik:
-    image: "traefik"
+    image: "traefik:v2.8"
     restart: always
     command:
       - --api.insecure=true
@@ -32,7 +32,7 @@ services:
     networks:
       - traefik
   portainer:
-    image: portainer/portainer-ee:latest
+    image: portainer/portainer-ee:2.15.1
     command: -H unix:///var/run/docker.sock
     restart: always
     volumes:
@@ -40,13 +40,13 @@ services:
       - portainer_data:/data
     labels:
       # Frontend
-      - traefik.enable=true
-      - traefik.docker.network=traefik
-      - traefik.http.routers.frontend.rule=Host(`portainer.mends.eu`)
-      - traefik.http.routers.frontend.entrypoints=websecure
-      - traefik.http.services.frontend.loadbalancer.server.port=9000
-      - traefik.http.routers.frontend.service=frontend
-      - traefik.http.routers.frontend.tls.certresolver=myresolver
+        - traefik.enable=true
+        - traefik.docker.network=traefik
+        - traefik.http.routers.frontend.rule=Host(`portainer.mends.eu`)
+        - traefik.http.routers.frontend.entrypoints=websecure
+        - traefik.http.services.frontend.loadbalancer.server.port=9000
+        - traefik.http.routers.frontend.service=frontend
+        - traefik.http.routers.frontend.tls.certresolver=myresolver
       # Edge
       - traefik.http.routers.edge.rule=Host(`edge.mends.eu`)
       - traefik.http.routers.edge.entrypoints=websecure

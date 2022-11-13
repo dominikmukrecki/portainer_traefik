@@ -1,7 +1,7 @@
 version: "3.7"
 services:
   traefik:
-    image: traefik:v2.8
+    image: traefik:v2.9
     restart: always
     command:
       - --api.insecure=true
@@ -32,7 +32,7 @@ services:
     networks:
       - traefik
   portainer:
-    image: portainer/portainer-ee:2.15.1
+    image: portainer/portainer-ee:2.16.1-alpine
     command: -H unix:///var/run/docker.sock
     restart: always
     volumes:

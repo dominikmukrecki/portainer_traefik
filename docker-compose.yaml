@@ -7,7 +7,7 @@ services:
       - --api.insecure=true
       - --providers.docker=true
       - --providers.docker.exposedbydefault=false
-      - --entrypoints.web.address=:80
+#      - --entrypoints.web.address=:80
       - --entrypoints.websecure.address=:443
       - --certificatesresolvers.myresolver.acme.dnschallenge=true
       - --certificatesresolvers.myresolver.acme.dnschallenge.provider=cloudflare
@@ -25,7 +25,7 @@ services:
     labels:
       - traefik.enable=true
       - traefik.docker.network=traefik
-      - traefik.http.routers.traefik-secure.entrypoints=websecure
+#      - traefik.http.routers.traefik-secure.entrypoints=websecure
       - traefik.http.routers.traefik-secure.rule=Host(`traefik.mends.eu`)
       - traefik.http.routers.traefik-secure.service=api@internal
       - traefik.http.routers.traefik-secure.tls.certresolver=myresolver
@@ -43,16 +43,16 @@ services:
       - traefik.enable=true
       - traefik.docker.network=traefik
       - traefik.http.routers.frontend.rule=Host(`portainer.mends.eu`)
-      - traefik.http.routers.frontend.entrypoints=websecure
+#      - traefik.http.routers.frontend.entrypoints=websecure
       - traefik.http.services.frontend.loadbalancer.server.port=9000
       - traefik.http.routers.frontend.service=frontend
       - traefik.http.routers.frontend.tls.certresolver=myresolver
       # Edge
-      - traefik.http.routers.edge.rule=Host(`edge.mends.eu`)
-      - traefik.http.routers.edge.entrypoints=websecure
-      - traefik.http.services.edge.loadbalancer.server.port=8000
-      - traefik.http.routers.edge.service=edge
-      - traefik.http.routers.edge.tls.certresolver=myresolver
+#      - traefik.http.routers.edge.rule=Host(`edge.mends.eu`)
+#      - traefik.http.routers.edge.entrypoints=websecure
+#      - traefik.http.services.edge.loadbalancer.server.port=8000
+#      - traefik.http.routers.edge.service=edge
+#      - traefik.http.routers.edge.tls.certresolver=myresolver
     networks:
       - traefik
 volumes:

@@ -1,13 +1,13 @@
 version: "3.7"
 services:
   traefik:
-    image: traefik:v2.9
+    image: traefik:v3.0
     restart: always
     command:
       - --api.insecure=true
       - --providers.docker=true
       - --providers.docker.exposedbydefault=false
-#      - --entrypoints.web.address=:80
+      - --entrypoints.web.address=:80
       - --entrypoints.websecure.address=:443
       - --certificatesresolvers.myresolver.acme.dnschallenge=true
       - --certificatesresolvers.myresolver.acme.dnschallenge.provider=cloudflare
@@ -25,14 +25,14 @@ services:
     labels:
       - traefik.enable=true
       - traefik.docker.network=traefik
-#      - traefik.http.routers.traefik-secure.entrypoints=websecure
+      - traefik.http.routers.traefik-secure.entrypoints=websecure
       - traefik.http.routers.traefik-secure.rule=Host(`traefik.mends.eu`)
       - traefik.http.routers.traefik-secure.service=api@internal
       - traefik.http.routers.traefik-secure.tls.certresolver=myresolver
     networks:
       - traefik
   portainer:
-    image: portainer/portainer-ee:2.16.1-alpine
+    image: portainer/portainer-ee:2.17.0-alpine
     command: -H unix:///var/run/docker.sock
     restart: always
     volumes:
@@ -43,7 +43,7 @@ services:
       - traefik.enable=true
       - traefik.docker.network=traefik
       - traefik.http.routers.frontend.rule=Host(`portainer.mends.eu`)
-#      - traefik.http.routers.frontend.entrypoints=websecure
+      - traefik.http.routers.frontend.entrypoints=websecure
       - traefik.http.services.frontend.loadbalancer.server.port=9000
       - traefik.http.routers.frontend.service=frontend
       - traefik.http.routers.frontend.tls.certresolver=myresolver

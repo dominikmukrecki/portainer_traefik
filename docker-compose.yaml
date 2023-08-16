@@ -13,8 +13,7 @@ services:
       - --certificatesresolvers.myresolver.acme.dnschallenge.provider=cloudflare
       - --certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json
     environment:
-      - CF_API_EMAIL=${CF_API_EMAIL}
-      - CF_API_KEY=${CF_API_KEY}
+      CUSTOM_404_HOSTNAME:
     ports:
       - 80:80
       - 443:443
@@ -29,6 +28,10 @@ services:
       - traefik.http.routers.traefik-secure.rule=Host(`traefik.mends.eu`)
       - traefik.http.routers.traefik-secure.service=api@internal
       - traefik.http.routers.traefik-secure.tls.certresolver=myresolver
+      - traefik.http.middlewares.custom-404.errors.status=404
+      - traefik.http.middlewares.custom-404.errors.service=serviceError
+      - traefik.http.middlewares.custom-404.errors.query=https://${CUSTOM_404_HOSTNAME}
+
     networks:
       - traefik
   portainer:

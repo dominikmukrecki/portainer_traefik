@@ -30,7 +30,7 @@ services:
       - traefik.http.routers.traefik-secure.tls.certresolver=myresolver
       - traefik.http.middlewares.custom-404.errors.status=404
       - traefik.http.middlewares.custom-404.errors.service=serviceError
-      - traefik.http.middlewares.custom-404.errors.query=https://${CUSTOM_404_HOSTNAME}
+      - traefik.http.middlewares.custom-404.errors.query=https://${CUSTOM_404_HOSTNAME}/{status}.html
 
     networks:
       - traefik

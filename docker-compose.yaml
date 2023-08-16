@@ -3,7 +3,7 @@ services:
   traefik:
     image: traefik:v3.0
     restart: always
-    env_file: stack.env
+    env_file: .env
     command:
       - --api.insecure=true
       - --providers.docker=true
@@ -31,7 +31,7 @@ services:
       - traefik
   portainer:
     image: portainer/portainer-ee:2.18.4-alpine
-    env_file: stack.env
+    env_file: .env
     command: -H unix:///var/run/docker.sock
     restart: always
     volumes:

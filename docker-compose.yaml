@@ -12,8 +12,6 @@ services:
       - --certificatesresolvers.myresolver.acme.dnschallenge=true
       - --certificatesresolvers.myresolver.acme.dnschallenge.provider=cloudflare
       - --certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json
-    environment:
-      CUSTOM_404_HOSTNAME:
     ports:
       - 80:80
       - 443:443

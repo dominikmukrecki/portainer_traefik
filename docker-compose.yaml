@@ -30,7 +30,7 @@ services:
     networks:
       - traefik
   portainer:
-    image: portainer/portainer-ee:2.18.4-alpine
+    image: portainer/portainer-ee:2.19.1-alpine
     env_file: .env
     command: -H unix:///var/run/docker.sock
     restart: always

@@ -32,6 +32,8 @@ services:
   portainer:
     image: portainer/portainer-ee:2.19.1-alpine
     env_file: .env
+    ports:
+      - 9000:9000
     command: -H unix:///var/run/docker.sock
     restart: always
     volumes:
